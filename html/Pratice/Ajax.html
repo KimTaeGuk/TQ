@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+	<meta charset="utf-8" />
+	<title>jQuery & Ajax & PHP Example</title>
+	<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			$('#send').click(function(){
+				//var data = {pram : value};
+				var data={request:$('#request').val()};
+
+				$.ajax({
+					type:"POST",
+					url:"send.php",
+					data:data,
+					success:function(data,dataType){ alert(data); },
+					error:function(XMLHttpRequest, textStatus, errorThrown){ alert('Error : ' + errorThrown); }
+				});
+				return false;
+			});
+		});
+	</script>
+</head>
+	<body>
+		<form method="POST">
+			<input type=text id="request"><input type="submit" id="send" value="submit">
+		</form>
+	</body>
+</html>

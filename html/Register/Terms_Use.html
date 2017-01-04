@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<HTML>
+<head><title>Terms of Use</title></head>
+	<style type="text/css">
+		<!--
+			th {
+				border:1px solid;
+			}
+		//-->
+	</style>
+
+	<script>
+	//All_CheckBox
+	var chk=document.getElementsByName("chk");
+		function check(all_chk){
+			for(i=0;i<chk.length;i++){
+				if(all_chk.checked){chk[i].checked=true;}
+				else if(!(all_chk.checked)){chk[i].checked=false;}
+				else {alert("CheckBox Error"); history.go(-1);}
+			}
+		}
+	//All_Agree
+			function Agree(){
+				if(chk[0].checked==false && chk[1].checked==false){alert("Please Check 1&2");}
+				else if(chk[0].checked==false){alert("Please Check 1");}
+				else if(chk[1].checked==false){alert("Please Check 2");}
+				else{location.href="./Register.php";}			
+			}
+	</script>
+<body>
+<center>
+
+<div id='header'></div>
+
+<div id='container'>
+<table>
+<tr><th>		<h3>Agree? Yes, Agree.</h3><br>		</th>
+
+	<!-- All_CheckBox -->
+	<th><input type="checkbox" onclick='check(this)'></th></tr>
+	<tr>
+		<th align="left">Use<font size='2pt' color='green'>(Need)</font></th>
+		<th><input type="checkbox" value='1' name='chk'></th>
+	</tr>
+	<tr><th colspan='2'>
+		<textarea readonly style="resize:none" cols=30 rows=5>asd</textarea>
+	</th></tr>
+
+
+	<tr>
+		<th align="left">Person<font size='2pt' color='green'>(Need)</font></th>
+		<th><input type="checkbox" value='2' name='chk'></th>
+	</tr>
+	<tr><th colspan='2'>
+		<textarea readonly style="resize:none" cols=30 rows=5>asd</textarea>
+	</th></tr>
+
+
+	<tr>
+		<th align="left">Location<font size='2pt' color='gray'>(Choose)</font></th>
+		<th><input type="checkbox" value='3' name='chk'></th>
+	</tr>
+	<tr><th colspan='2'>
+		<textarea readonly style="resize:none" cols=30 rows=5>asd</textarea>
+	</th></tr>
+</table>
+
+<!-- Agree / No Agree -->
+	<span style="border:1px solid black;"><a href='#'>Not Agree</a></span>
+	<span style="border:1px solid black;"><input type='button' value='Agree' onclick='Agree()'></span>
+</div>
+
+<div id='footer'></div>
+
+</center>
+</body>
+</HTML>
