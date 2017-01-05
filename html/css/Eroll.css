@@ -1,0 +1,32 @@
+		div {
+			border:1px solid skyblue;
+		}
+		div > div > div > div{
+			color : red;
+		}
+		#FreeShipping {
+			position:absolute;
+			width:80px;
+			height:80px;
+			right:330px;
+			top:30px;
+		}
+		#Cupon {
+			position:absolute;
+			width:80px;
+			height:80px;
+			right:330px;
+			top:130px;
+		}
+		#Gifts {
+			position:absolute;
+			width:80px;
+			height:80px;
+			right:330px;
+			top:230px;
+		}
+
+		img {
+			width:100%;
+			height:100%;
+		}

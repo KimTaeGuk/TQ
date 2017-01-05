@@ -21,7 +21,7 @@
 	}
 	mysqli_close($con);
 ?>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="../Goods/Eroll.php">Goods Erollement</a>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="../Eroll_Goods/Eroll.php">Goods Erollement</a>
 <br /> <br /> <br /> <br />
 <div style="border:1px solid;">
 <ul>
