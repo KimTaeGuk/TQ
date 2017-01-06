@@ -1,12 +1,21 @@
 <?php
-	echo $_FILES['userfile']['tmp_name']."<br>";
-	echo $_FILES['userfile']['name']."<br>";
-	echo $_FILES['userfile']['size']."<br>";
-	echo $_FILES['userfile']['type']."<br>";
-	echo $_FILES['userfile']['error']."<br>";
-	if($_FILES['userfile']['error'] > 0){
+
+	echo (count($_FILES['userfile']['name']));
+
+	$num=count($_FILES['userfile']['name']);
+	
+for($i=0;$i<$num;$i++){
+	echo $_FILES['userfile']['tmp_name'][$i]."<br>";
+	echo $_FILES['userfile']['name'][$i]."<br>";
+	echo $_FILES['userfile']['size'][$i]."<br>";
+	echo $_FILES['userfile']['type'][$i]."<br>";
+	echo $_FILES['userfile']['error'][$i]."<br>";
+
+	$upfile = '../Pratice/'.$_FILES['userfile']['name'][$i];
+
+	if($_FILES['userfile']['error'][$i] > 0){
 	 	echo 'Problem: ';
-	 	switch($_FILES['userfile']['error']){
+	 	switch($_FILES['userfile']['error'][$i]){
 	 		case 1: echo "파일 크기 초과";
 	 				break;
 	 		case 2:	echo "파일 크기 초과";
@@ -23,16 +32,14 @@
 	exit;
 	 }
 
-	if($_FILES['userfile']['type'] != 'image/png' && $_FILES['userfile']['type'] != 'image/jpeg' && $_FILES['userfile']['type'] != 'image/gif'){
+	if($_FILES['userfile']['type'][$i] != 'image/png' && $_FILES['userfile']['type'][$i] != 'image/jpeg' && $_FILES['userfile']['type'][$i] != 'image/gif'){
 	   	echo "파일형식 미지원";
 	   	exit;
 	}
 
-	$upfile = "../Pratice/".$_FILES['userfile']['name'];
-
-	if(is_uploaded_file($_FILES['userfile']['tmp_name']))
+	if(is_uploaded_file($_FILES['userfile']['tmp_name'][$i]))
 	{
-		if(!move_uploaded_file($_FILES['userfile']['tmp_name'], $upfile))
+		if(!move_uploaded_file($_FILES['userfile']['tmp_name'][$i], $upfile))
 		{
 	 		echo "Problem : 저장소가 없음";	//권한이 없으면 오류가 생김
 	 		exit;
@@ -40,15 +47,18 @@
 	}
 	else { 
 	 	echo "공격 파일이당 : ";
-	 	echo $_FILES['userfile']['name'];
+	 	echo $_FILES['userfile']['name'][$i];
 	 	exit;
 	}
 
 	echo 'Success';
+}
 
-	$contents = file_get_contents($upfile);
-		$contents = strip_tags($contents);
-	file_put_contents($_FILES['userfile']['name'], $contents);
+
+
+
+
+
 
 	// echo nl2br($contents);
 	// echo "<br /> <hr />"
@@ -63,7 +73,6 @@
 	// 	echo ($_POST["opt".$i]."<br>");
 	// 	echo ($_POST["opt_price".$i]."<br>");
 	// }
-
 include('../config/db_connect.php');
 
 mysqli_close();
