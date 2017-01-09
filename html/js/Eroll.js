@@ -1,10 +1,6 @@
 	$(document).ready(function(){});
 
 		function fileChk(obj){
-			$("div").remove("#Img_Div");
-			if("#img_Div"){
-				alert("dass");
-			}
 			pathpoint=obj.value.lastIndexOf('.');
 			filepoint=obj.value.substring(pathpoint+1,obj.length);
 			filetype=filepoint.toLowerCase();
@@ -18,31 +14,40 @@
 		}	// fileChk(obj)
 
 		function readURL(input){
+			$("div").remove("#Img_Div");
+			$("div").remove("#Sub_Div");
 			var i=0;
+
 			var imgfiles=document.getElementById("userfile[]"),
 			imgfiles_length=imgfiles.files.length;
 			
 			for(var i=0; i< imgfiles_length;i++){
+				var j=i+1;
 				var addedDiv=document.createElement("div");
 				addedDiv.className="mySlides fade";
-				addedDiv.id="Img_Div"
+				addedDiv.id="Img_Div";
 				addedDiv.innerHTML="<img src='#' id='img"+i+"' alt="+i+">";
 				slideshowcontainer.appendChild(addedDiv);
+				
+				var addedSub=document.createElement("div");
+				addedSub.id="Sub_Div";
+				addedSub.innerHTML="<img src='#' id='subimg"+i+"' class='Sel_img' alt="+i+" onclick='currentSlide("+j+")' style='width:100%; height:100%;'>";
+				slideshowpointer.append(addedSub);
 			}	
-			alert(addedDiv.className);
-			alert(addedDiv.id);
 			for(var i=0; i< imgfiles_length;i++){
 				if(input.files && input.files[i]){
 					var reader = new FileReader();
 					reader.onload=function(e){
 						$('#img'+i).attr('src', e.target.result);
-						// $('#subimg'+i).attr('src', e.target.result);					
+						$('#subimg'+i).attr('src', e.target.result);					
 					}
 					reader.readAsDataURL(input.files[i]);
 				}
 				alert(i);
 			}
 		}
+
+//Sel_img
 
 		function Chk_int_onblur(){
 			var fm=document.Eroll_fm;

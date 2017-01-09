@@ -15,43 +15,17 @@
 <form name="Eroll_fm" method="POST" action="Eroll_proc.php" enctype="multipart/form-data" />
 	<div style="width:1000px; height:2000px; position:relative">
 			<div style="width:450px; height:450px; float:left; position:relative;">
-				
-
-
 				<div class="slideshowcontainer" id="slideshowcontainer" style="width:auto; height:200px">
-<!-- 					<div class="mySlides fade">
-						<img src="#" id="img0">
-					</div>
-
-					<div class="mySlides fade">
-						<img src="#" id="img1">
-					</div>
-
-					<div class="mySlides fade">
-						<img src="#" id="img2">
-					</div>
- -->
 					<a class="prev" onclick="plusSlides(-1)"><</a>
-					<a class="next" onclick="plusSlides(1)">></a>
-					
+					<a class="next" onclick="plusSlides(1)">></a>				
 				</div>
-
-				<div style="text-align:center; position:relative; top:0px;">
-<!-- 					<img src="#" id="subimg0" onclick="currentSlide(1)" style="width:30px; height:30px;">
-					<img src="#" id="subimg1" onclick="currentSlide(2)" style="width:30px; height:30px;">
-					<img src="#" id="subimg2" onclick="currentSlide(3)" style="width:30px; height:30px;"> -->
+				<div id="slideshowpointer" style="text-align:center; display:table-cell; width:auto; height:auto; background:yellow; position:relative;">
 				</div>	
-
-
-
 				<div style="width:100%; height:auto; position:absolute; bottom:0px;">
-				<input type="file" multiple="multiple" name="userfile[]" id="userfile[]" class="userfile" onchange="fileChk(this);" accept="image/jpg, image/gif, image/png"/>
-						<!-- file -->
-				<input type="hidden" name="MAX_FILE_SIZE" value="10000" /> <!-- 업로드할 파일의 최대 크기 -->
+					<input type="file" multiple="multiple" name="userfile[]" id="userfile[]" class="userfile" onchange="fileChk(this);" accept="image/jpg, image/gif, image/png"/>		<!-- file -->	
+					<input type="hidden" name="MAX_FILE_SIZE" value="10000" /> <!-- 업로드할 파일의 최대 크기 -->	
 				</div>
 			</div>
-
-
 
 			<div style="width:450px; height:150px; float:right;">			
 				<div style="width:450px; height:50px; float:right">
