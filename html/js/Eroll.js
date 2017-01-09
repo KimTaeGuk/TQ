@@ -1,29 +1,49 @@
-	$(document).ready(function(){
-		function readURL(input){
-			if(input.files && input.files[0]){
-				var reader = new FileReader();
-				reader.onload=function(e){
-					$('#blah').attr('src', e.target.result);
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-		$(".userfile").change(function(){
-			readURL(this);
-		});
-	});
-
+	$(document).ready(function(){});
 
 		function fileChk(obj){
+			$("div").remove("#Img_Div");
+			if("#img_Div"){
+				alert("dass");
+			}
 			pathpoint=obj.value.lastIndexOf('.');
 			filepoint=obj.value.substring(pathpoint+1,obj.length);
 			filetype=filepoint.toLowerCase();
-			if(filetype=='jpg' || filetype=='gif' || filetype=='png'){}
+			if(filetype=='jpg' || filetype=='gif' || filetype=='png'){
+				readURL(obj);
+			}
 			else {
 				alert('Plz, Choose Image file\n(jpg, gif, png)');
 				return false;
 			}
 		}	// fileChk(obj)
+
+		function readURL(input){
+			var i=0;
+			var imgfiles=document.getElementById("userfile[]"),
+			imgfiles_length=imgfiles.files.length;
+			
+			for(var i=0; i< imgfiles_length;i++){
+				var addedDiv=document.createElement("div");
+				addedDiv.className="mySlides fade";
+				addedDiv.id="Img_Div"
+				addedDiv.innerHTML="<img src='#' id='img"+i+"' alt="+i+">";
+				slideshowcontainer.appendChild(addedDiv);
+			}	
+			alert(addedDiv.className);
+			alert(addedDiv.id);
+			for(var i=0; i< imgfiles_length;i++){
+				if(input.files && input.files[i]){
+					var reader = new FileReader();
+					reader.onload=function(e){
+						$('#img'+i).attr('src', e.target.result);
+						// $('#subimg'+i).attr('src', e.target.result);					
+					}
+					reader.readAsDataURL(input.files[i]);
+				}
+				alert(i);
+			}
+		}
+
 		function Chk_int_onblur(){
 			var fm=document.Eroll_fm;
 			if(isNaN(fm.price.value)){
@@ -50,3 +70,4 @@
 				document.Eroll_fm.count.value=count;
 			}
 		}	//Del_opt()
+
