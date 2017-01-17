@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+	// function post_chk(){
+	// 	var pw=document.fm.pwd;
+	// 	//var regret=/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).*$/;
+
+	// 	if(!pw.value.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*])|([!,@,#,$,%,^,&,*].*[a-zA-Z0-9])/)){
+	// 		alert("Error")
+	// 		return false;
+	// 	} else {
+	// 		alert("Success")
+	// 		return true;
+	// 	}
+	// }
+
+
+//!@#%&
+	function post_chk(){
+		var fm=document.fm;
+			for(var i=0;i<fm.pwd.value.length;i++){
+				var ch=fm.pwd.value.charAt(i);
+				if(!ch.match(/([a-zA-Z0-9])/)){
+					if(ch.match(/([!,@,#,%,&])/)){}
+					else {alert("Error"+i+ " : "+ch);}
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<form name='fm' method='post'>
+		<input type="text" id="pwd" name="pwd" /> 
+		<input type="button" value="Write" onclick="post_chk();"/>
+	</form>
+</body>
+</html>
