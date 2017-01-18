@@ -1,6 +1,6 @@
 <?php	
-	include('../config/db_connect.php');
-	include('../config/mysql_result.php');
+	require_once('../config/db_connect.php');
+	require_once('../config/mysql_result.php');
 
 	$sql="select * from Goods where kategorie='Spring' && Sub_kategorie='Warm'";
 	$result=$con->query($sql);
@@ -32,16 +32,59 @@
 	<TITLE></TITLE>
 	<script src="../js/Goods_Shopping.js"></script>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>		<!-- jQuery -->
-	<link rel="stylesheet" href="../css/Goods_Shopping.css">
-	<script>
-	//자바배열로 바로 옮겨주는 json_encode
-	var img=<?php echo json_encode($img) ?>;
-	</script>
+	<link rel="stylesheet" href="../css/Eye_Goods.css">
+<script>
+//자바배열로 바로 옮겨주는 json_encode
+var idx=1;
+var img=<?php echo json_encode($img) ?>;
+var Goods_name=<?php echo json_encode($Goods_name) ?>;
+var Sub_explain=<?php echo json_encode($Sub_explain) ?>;
+var Price=<?php echo json_encode($Price) ?>;
+var Options=<?php echo json_encode($Options) ?>;
+var Options_price=<?php echo json_encode($Options_price) ?>;
+	
+window.onload=function(){
+		for(i=0;i<img.length;i++){addDivs(i);}
+		for(i=0;i<img.length;i++){addDivs(i);}
+	}
+</script>
 </HEAD>
 <BODY>
 <center>
-<form name="Shopping" method="get" action="Shopping_proc.php" enctype="multipart/form-data" />
+<form id="Shopping" name="Shopping" method="get" action="Goods_Shopping.php" enctype="multipart/form-data" />
+<div id='Main_Div'>
+<script>
+	//Div 동적 생성
+	function addDivs(num){
+		var newDiv=document.createElement('DIV');
+		newDiv.setAttribute('id','Goods_div'+idx);
+		newDiv.setAttribute('class','Goods_div');
+		newDiv.innerHTML="<div><img src=../Upload_img/"+img[num][0]+" style='width:100px; height:80px;'></div><div>"+ Goods_name[num] +"</div>";
+		newDiv.onclick=function(){
+			var Goods_node=document.createElement("input");
+			Goods_node.setAttribute("type","hidden");
+			Goods_node.setAttribute("name","Goods_name");
+			Goods_node.setAttribute("value",Goods_name[num]);
+			Goods_node.setAttribute("class","Goods_num hidden");
 
+			var Goods_explain=document.createElement("input");
+			Goods_explain.setAttribute("type","hidden");
+			Goods_explain.setAttribute("name","Goods_explain");
+			Goods_explain.setAttribute("value",Sub_explain[num]);
+			Goods_explain.setAttribute("class","Goods_Image hidden");
+
+			Main_Div.appendChild(Goods_node);
+			Main_Div.appendChild(Goods_explain);
+			
+			$('#Shopping').submit();
+			$(".hidden").remove();
+		}
+		Main_Div.appendChild(newDiv);
+		idx++;
+	}
+
+</script>
+</div>
 </form>
 </center>
 </BODY>

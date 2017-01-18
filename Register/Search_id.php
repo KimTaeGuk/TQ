@@ -13,7 +13,7 @@
 		</tr>
 		<tr>
 			<td>Birthday</td>
-			<td><?php include("./birth.php"); ?></td>
+			<td><?php require_once("./birth.php"); ?></td>
 		</tr>
 		<tr><td align='center' colspan='2'>
 			<input type='submit' value='submit' /></td>

@@ -1,8 +1,8 @@
 <?php	
-	include('../config/db_connect.php');
-	include('../config/mysql_result.php');
+	require_once('../config/db_connect.php');
+	require_once('../config/mysql_result.php');
 
-	$sql="select * from Goods where SID='10'";
+	$sql="select * from Goods where Goods_name='$_GET[Goods_name]' && Sub_explain='$_GET[Goods_explain]'";
 	$result=$con->query($sql);
 
 	$Goods_name=mysql_result($result, 0, "Goods_name");
@@ -15,7 +15,7 @@
 
 	if($result->num_rows > 0){
 		while($row=$result->fetch_assoc()){
-			// echo $row["Goods_name"];
+			//echo $row["Goods_name"];
 		}
 	}	else {}
 ?>
