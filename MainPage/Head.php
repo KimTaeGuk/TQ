@@ -14,6 +14,7 @@
 		echo $_SESSION['id']."  ";
 		echo "<a href='./Register/logout.php'>logout</a>";
 		echo "<a href='./Mypage/Mypage.php'>My Page</a>";
+		echo "<a href='../Board/Board_write.php'>Board_write</a>";
 	}
 	else {
 		echo "<a href='./Register/login.php'>Login</a>   "; 
