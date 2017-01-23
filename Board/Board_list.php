@@ -15,6 +15,7 @@
 		$count[$i]=mysql_result($result,$i,count);
 		$date[$i]=mysql_result($result,$i,date);	
 	}
+
 ?>
 <!DOCTYPE HTML>
 <HTML>

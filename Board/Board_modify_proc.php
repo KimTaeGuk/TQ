@@ -2,7 +2,6 @@
 	session_start();
 	
 	require_once("../config/db_connect.php");
-	require_once("../config/mysql_result.php");
 
 	echo $_POST[num];
 	echo $_POST[title];

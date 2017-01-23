@@ -21,7 +21,16 @@
 	}
 	$date=date('Y-m-d H:i:s');
 	require_once('../config/db_connect.php');
-	$sql="insert into board(id,title,content,count,date) values ('$_POST[id]','$_POST[title]','$_POST[content]',0,'$date')";
+
+	$sql = "select * from board";
+	$result=$con->query($sql);
+
+	$num_row=$result->num_rows;
+
+	if(!$num_row){$num=1;}
+	else{$num=$num_row+1;}
+	
+	$sql="insert into board(num, id,title,content,count,date) values ($num, '$_POST[id]','$_POST[title]','$_POST[content]',0,'$date')";
 	$con->query($sql);
 
 	Header("Location: ./Board_list.php");
