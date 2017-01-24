@@ -29,6 +29,10 @@
 	<link rel="stylesheet" href="../css/Eroll.css">
 
 	<script>
+			//Slide_img
+			var sli_img="<?= $Slide_img ?>";
+			var Slied_img=sli_img.split(";");
+		
 		window.onload=function(){
 			//Options
 			var sel="<?= $Options ?>";
@@ -46,9 +50,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 			SlideTag=document.getElementById("slideshowcontainer");
 			//Slide_img
-			var sli_img="<?= $Slide_img ?>";
-			var Slied_img=sli_img.split(";");
-
 			for(var i in Slied_img){
 				var Slide_Div=document.createElement("div");
 					Slide_Div.className="mySlides fade";
@@ -73,11 +74,24 @@
 			Mimg=document.getElementById("Main_img");
 			Mimg.src="../Upload_img/"+img;
 		}
+
+		function basket(){
+			var i=document.getElementById("image_1");
+			i.value=Slied_img[0];
+			document.Shopping.action="../Basket/Basket.php";
+			document.Shopping.submit();
+		}
 	</script>
 </HEAD>
 <BODY>
 <center>
-<form name="Shopping" method="get" action="Shopping_proc.php" enctype="multipart/form-data" />
+<form name="Shopping" method="POST" action="Shopping_proc.php" enctype="multipart/form-data" />
+	
+	<!--  장구니에전송할 정보(첫 번째 이미지, 상품 이름, 가격, 갯수) -->
+	<input type="hidden" name="Goods_name" value="<?=$Goods_name?>">
+	<input type="hidden" name="Price" value="<?=$Price?>">
+	<input type="hidden" name="image" id="image_1" value="">
+
 	<div align="left" style="width:1000px; height:1500px; position:relative">
 	<div style="float:left; width:450px; height:500px;">
 		<div class="slideshowcontainer" id="slideshowcontainer" style="float:left;"></div>
@@ -94,7 +108,7 @@
 		</div>
 
 		<div style="position:absolute; width:450px; height:150px; top:300px; right:0px;">
-			Select <select id="Opt" style="width:395px;">
+			Select <select id="Opt" name="Opt_pri" style="width:395px;">
 				<option value="AS" id="AS" name="Options"></option>
 				<option value="ZX" id="ZX" name="Options"></option>
 				<option value="CV" id="CV" name="Options"></option>
@@ -102,19 +116,11 @@
 		</div>
 		<div style="position:absolute; text-align: center; width:450px; height:50px; top:450px; right:0px;">
 		Quantity
-		<select>
-			<option>1</option>
-			<option>2</option>
-			<option>3</option>
-			<option>4</option>
-			<option>5</option>
-			<option>6</option>
-			<option>7</option>
-			<option>8</option>
-			<option>9</option>
-			<option>10</option>
+		<select name="Quantity">
+			<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+			<option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
 		</select>
-		<input type="button" id="Basket" value="Basket" fromaction=""> / <input type="button" id="Direct" value="Direct">
+		<input type="button" id="Basket" value="Basket" onclick="basket();"> / <input type="button" id="Direct" value="Direct">
 		</div>
 		<div>
 		<div style="float:left; text-align: center; width:100%; height:auto; ">
