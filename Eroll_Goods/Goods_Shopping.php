@@ -78,7 +78,7 @@
 		function basket(){
 			var i=document.getElementById("image_1");
 			i.value=Slied_img[0];
-			document.Shopping.action="../Basket/Basket.php";
+			document.Shopping.action="../Basket/Basket_proc.php";
 			document.Shopping.submit();
 		}
 	</script>

@@ -98,7 +98,7 @@
 	<table>
 	<?php
 		for($x=0;$x<$num_row;$x++){
-		echo "<tr><th>ID : </th><th>".$comment_id[$x]."</th><th><input type='button' value='답글' id='coco' onclick='co_comment($x);'></th><th><a href='../comment/comment_modify.php?num=$row[num]&&content=$comment_content[$x]'>Modify</a></th><th><a href='../comment/comment_delete.php?num=$row[num]&&content=$comment_content[$x]'>Delete</a></th></tr>
+		echo "<tr><th>ID : </th><th>".$comment_id[$x]."</th><th><input type='button' value='답글' id='coco' onclick='co_comment($x);'></th><th><a href='../comment/comment_modify.php?num=$row[num]&&content=$comment_content[$x]'>Modify</a></th><th><a href='../comment/comment_delete.php?num=$row[num]&&content=$comment_content[$x]&&comment_num=$x'>Delete</a></th></tr>
 			<tr><th>내용</th><th colspan=3>".$comment_content[$x]."</th><th><input type=button id='coco_see' onclick='co_see($x);' value='댓글'></th></tr><tr><th colspan=5><div id='comment_Div$x'></div></th></tr><tr><th colspan=5><div id='coco_see$x'></div></th></tr>";
 		}
 	?>

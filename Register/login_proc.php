@@ -1,18 +1,19 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+<TITLE></TITLE>
+</HEAD>
+<BODY>
 <?php
-
 session_start();
-include("../config/db_connect.php");
-include("../config/mysql_result.php");
+require_once("../config/db_connect.php");
+require_once("../config/mysql_result.php");
 
 
  $result=mysqli_query($con, "select * from Members where id='$_POST[id]' && pw='$_POST[pw]'");
+
  $DB_id=mysql_result($result,0,"id");
  $DB_pw=mysql_result($result,0,"pw");
-
- printf ($_POST['id']);
- printf ($_POST['pw']);
- printf ($DB_id);
- printf ($DB_pw);
  
  if(($_POST['id']!=null)&&($_POST['pw']!=null)){
  		$_SESSION['id']=$_POST['id'];
@@ -29,12 +30,20 @@ include("../config/mysql_result.php");
  		echo ("<script>alert('Success');</script>");
  		header('Location:../index.php');
 	}	else {
- 		echo ("<script>alert('Wrong ID or PW');</script>");
- 		header('Location: ./login.php');
+ 		echo ("<script>
+ 			alert('Wrong ID or PW');
+ 			history.go(-1);
+ 			</script>");
+ 		return false;
  	}
 } else {
- 	echo ("<script>alert('NULL ID or PW');</script>");
- 	header('Location: ./login.php');
+ 	echo ("<script>
+ 		alert('NULL ID or PW');
+ 		history.go(-1);
+ 		</script>");
+ 	return false;
 }
 
 ?>
+</BODY>
+</HTML>

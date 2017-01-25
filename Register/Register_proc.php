@@ -68,7 +68,14 @@
 
  include('../config/db_connect.php');
 
-     mysqli_query($con, "insert into Members(id,pw,name,birth) values ('$_POST[id]','$_POST[pw]','$_POST[name]','$Birth')");
+  $sql="select * from Members";
+  $result=$con->query($sql);
+  $num_row=$result->num_rows;
+
+  if(!$num_row){$num_row=1;} 
+  else {$num_row+=1;}
+
+    mysqli_query($con, "insert into Members(count,id,pw,name,birth) values ($num_row ,'$_POST[id]','$_POST[pw]','$_POST[name]','$Birth')");
      mysqli_close($con);
-     //header('Location: ../index.php');  
+     header('Location: ../index.php');  
 ?>
