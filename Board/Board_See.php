@@ -57,6 +57,15 @@
 			$('#co_co_form').submit();
 		}
 
+		function comment_modify_submit(){
+			document.co_fr.action="../comment/comment_modify_proc.php";
+			document.co_fr.submit();
+		}
+
+		function coco_modify_submit(){
+			document.co_fr.action="../comment/coco_modify_proc.php";
+			document.co_fr.submit();
+		}
 	</script>
 
 	<style>
@@ -64,7 +73,7 @@
 	</style>
 </HEAD>
 <BODY>
-<form action="../comment/comment_comment_proc.php" method="POST" id="co_co_form">
+<form action="../comment/comment_comment_proc.php" method="POST" name="co_fr" id="co_co_form">
 	<input type="hidden" value="<?=$_SESSION[id]?>" name="id">
 	<input type="hidden" value="<?=$row[num]?>" name="board_num">
 	<input type="hidden" value="" name="comment_num" id="comment_num">
@@ -98,8 +107,8 @@
 	<table>
 	<?php
 		for($x=0;$x<$num_row;$x++){
-		echo "<tr><th>ID : </th><th>".$comment_id[$x]."</th><th><input type='button' value='답글' id='coco' onclick='co_comment($x);'></th><th><a href='../comment/comment_modify.php?num=$row[num]&&content=$comment_content[$x]'>Modify</a></th><th><a href='../comment/comment_delete.php?num=$row[num]&&content=$comment_content[$x]&&comment_num=$x'>Delete</a></th></tr>
-			<tr><th>내용</th><th colspan=3>".$comment_content[$x]."</th><th><input type=button id='coco_see' onclick='co_see($x);' value='댓글'></th></tr><tr><th colspan=5><div id='comment_Div$x'></div></th></tr><tr><th colspan=5><div id='coco_see$x'></div></th></tr>";
+		echo "<tr><th>ID : </th><th>".$comment_id[$x]."</th><th><input type='button' value='답글' id='coco' onclick='co_comment($x);'></th><th><a href='#' onclick='Comment_Modify($x);'>Modify</a></th><th><a href='../comment/comment_delete.php?num=$row[num]&&content=$comment_content[$x]&&comment_num=$x'>Delete</a></th></tr>
+			<tr><th>내용</th><th colspan=3 id='comment_content$x'>".$comment_content[$x]."</th><th><input type=button id='coco_see' onclick='co_see($x);' value='댓글'></th></tr><tr><th colspan=5><div id='comment_Div$x'></div></th></tr><tr><th colspan=5><div id='coco_see$x'></div></th></tr>";
 		}
 	?>
 	</table>
@@ -132,8 +141,44 @@
 			success:function(data){
 				$('#coco_see'+num).html(data);
 			}
-		})
+		});
 	}	
+
+	function Comment_Modify(num){
+		var board_num="<?=$row[num]?>";
+		var comment_num=(num+1);
+		$.ajax({
+			type:'POST',
+			url:'../comment/comment_modify.php',
+			data:{
+				board_num:board_num,
+				comment_num:comment_num				
+			},
+			dataType:'html',
+			success:function(data){
+				$('#comment_content'+num).html(data);	
+			}
+		});
+	}
+
+	function coco_modify(num1,num2){
+		var board_num="<?=$row[num]?>";
+		var comment_num=num1;
+		var coco_num=num2;
+		$.ajax({
+			type:'POST',
+			url:'../comment/coco_modify.php',
+			data:{
+				board_num:board_num,
+				comment_num:comment_num,
+				coco_num:coco_num			
+			},
+			dataType:'html',
+			success:function(data){
+				$('#content_'+num1+'_'+num2).html(data);	
+			}
+		});		
+	}
 	</script>
 </BODY>
 </HTML>

@@ -9,7 +9,7 @@
 		return false;
 	}	
 
-	$sql="select distinct comment_num from comment";
+	$sql="select * from comment where board_num=$_POST[board_num]";
 	$result=$con->query($sql);
 
 	$num_row=$result->num_rows;
