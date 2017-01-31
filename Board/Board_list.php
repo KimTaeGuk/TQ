@@ -1,8 +1,17 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD><TITLE>Board_list</TITLE>
 <?php
 	require_once('../config/db_connect.php');
 	require_once('../config/mysql_result.php');
 
-	$sql="select * from board";
+	if(empty($_POST[name])){
+		$sql="select * from board";
+	}
+	else {
+		$sql="select * from board where kategory='$_POST[name]'";
+	}
+
 	$result=$con->query($sql);
 	$num_row=$result->num_rows;
 
@@ -11,7 +20,7 @@
 	if(isset($_GET['page']))	$page=$_GET['page'];
 	else $page=1;
 
-	$onePage=5;
+	$onePage=10;
 	$allPage=ceil($num_row/$onePage);
 
 	if($page < 1 && $page > $allPage)	exit;
@@ -45,18 +54,39 @@
 
 	$currentLimit=($onePage * $page)-$onePage;
 	$sqlLimit='limit '.$currentLimit.','.$onePage;
-	
-	$sql="select * from board ".$sqlLimit;
+
+	$result=$con->query($sql);
+	$num_row=$result->num_rows;
+
+	if(empty($_POST[name])){
+		$sql="select * from board";
+	}	else {
+	$sql="select * from board where kategory='$_POST[name]' ".$sqlLimit;
+	}
 	$result=$con->query($sql);
 //////////////////////////////////// Paging_End ////////////////////////////////////
 ?>
-<!DOCTYPE HTML>
-<HTML>
-<HEAD><TITLE>Board_list</TITLE>
+
 <script>
 	function search_go(){
 		s=document.getElementById("Search");
 		location.href="./Board_Search.php?Search="+s.value;
+	}
+
+	function viewfuc(co_num, co_str){
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 </script>
 <style>
@@ -75,12 +105,37 @@
 		<th>Id </th>
 		<th>Count </th>
 		<th>Date</th>	
+		<th>Star</th>
 	</tr>
 </thead>
 <tbody>
-<?php
+<!-- <a href='../Board/Board_See.php?num=$row[num]&title=$row[title]'>
+ --><?php
 	while($row=$result->fetch_assoc()){
-		echo "<tr><th>".$row[num]."</th><th style='width:500px'><a href='./Board_See.php?num=$row[num]&title=$row[title]'>".$row[title]."</th><th>".$row[id]."</th><th>".$row[count]."</th><th>".$row[date]."</th></tr>";
+		echo "<tr id=Comment_".$row[num]." onclick='viewfuc(\"".$row[title]."\", $row[num])'><th>".$row[num]."</th><th style='width:500px'>".$row[title]."</th><th>".$row[id]."</th><th>".$row[count]."</th><th>".$row[date]."</th><th>";
+		switch($row[star]){
+			case 1:
+				echo "★";
+				break;
+			case 2:
+				echo "★★";
+				break;
+			case 3:
+				echo "★★★";
+				break;
+			case 4:
+				echo "★★★★";
+				break;
+			case 5:
+				echo "★★★★★";
+				break;
+			default:
+				echo "Error";
+		}
+		echo "</th></tr>
+		<tr><th colspan=6>
+			<div id='viewDiv_$row[num]'></div>
+		</th></tr>";
 	}
 ?>
 </tbody>

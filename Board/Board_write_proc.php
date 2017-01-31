@@ -1,4 +1,10 @@
 <?php
+	if(!$_POST['name']){
+		echo "<script>
+			alert('No ID');
+			</script>";
+		return false;
+	}	
 	if(!$_POST['id']){
 		echo "<script>
 			alert('No ID');
@@ -30,7 +36,7 @@
 	if(!$num_row){$num=1;}
 	else{$num=$num_row+1;}
 	
-	$sql="insert into board(num, id,title,content,count,date) values ($num, '$_POST[id]','$_POST[title]','$_POST[content]',0,'$date')";
+	$sql="insert into board(num, id,title,content,count,date,star,kategory) values ($num, '$_POST[id]','$_POST[title]','$_POST[content]',0,'$date',$_POST[star],'$_POST[name]')";
 	$con->query($sql);
 
 	Header("Location: ./Board_list.php");

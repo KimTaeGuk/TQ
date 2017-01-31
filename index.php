@@ -19,6 +19,7 @@
 
 	<?php
 		session_start();
+
 		if($_SESSION['is_login']){
 			echo ("var loginOn='".$_SESSION['is_login']."';");
 		}
@@ -58,7 +59,7 @@
 <BODY>
 <div id=floatMenu style="display:none;"></div>
 	<center>	
-		<div id="Slide_Event" style="height:100px; width:100%;">
+		<div id="Slide_Event" style="height:100px; width:100%; text-align:right;">
 			<button class=btn1>Up</button>
 		</div>
 		<div id="div_Head" style="height:150px; width:1000px;"></div>

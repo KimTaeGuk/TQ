@@ -34,6 +34,18 @@
 			var Slied_img=sli_img.split(";");
 		
 		window.onload=function(){
+			$.ajax({
+				type:'POST',
+				url:'../Board/Board_list.php?name=',
+				data:{
+					name:"<?=$Goods_name?>"
+				},
+				dataType:'html',
+				success:function(data){
+					$('#comment_list').html(data);
+				}
+			});
+
 			//Options
 			var sel="<?= $Options ?>";
 			var sel_price="<?= $Options_price ?>";
@@ -126,8 +138,11 @@
 		<div style="float:left; text-align: center; width:100%; height:auto; ">
 		<img src="#" id="Main_img" style="width:100%; height:auto;">
 		</div>
+		<div id="comment_list" style="position: relative; top:1500px">
+		</div>
 	</div>
 </form>
+
 </center>
 	<script src="../js/SlideShow.js"></script>
 </BODY>

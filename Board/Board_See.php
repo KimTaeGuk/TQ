@@ -1,12 +1,20 @@
 <?php
 	require_once('../config/db_connect.php');
 	require_once('../config/mysql_result.php');
+	if(!$_POST[num]){
+		echo "No num";
+		return false;
+	}
+	if($_POST[title]){
+		echo "No title";
+		return false;
+	}
 
 	session_start();
-	$sql="update board set count=count+1 where num='$_GET[num]' && title='$_GET[title]'";
+	$sql="update board set count=count+1 where num='$_POST[num]'";
 	$result=$con->query($sql);
 	
-	$sql="select * from board where num='$_GET[num]' && title='$_GET[title]'";
+	$sql="select * from board where num='$_POST[num]' && title='$_POST[title]'";
 	$result=$con->query($sql);
 	$row=$result->fetch_assoc();
 	$count=$row[count];
@@ -98,8 +106,8 @@
 
 <!-- 수정 및 삭제 -->
 	</tr>
-	<tr><th colspan=5><a href='./Board_delete.php?num=<?=$row[num]?>&&title=<?=$row[title]?>'>Delete</a></th></tr>
-	<tr><th colspan=5><a href='./Board_modify.php?num=<?=$row[num]?>&&title=<?=$row[title]?>'>Modify</a></th></tr>
+	<tr><th colspan=5><a href='../Board/Board_delete.php?num=<?=$row[num]?>&&title=<?=$row[title]?>'>Delete</a></th></tr>
+	<tr><th colspan=5><a href='../Board/Board_modify.php?num=<?=$row[num]?>&&title=<?=$row[title]?>'>Modify</a></th></tr>
 	<tr><th colspan=5>---------------------------------------------------------</th></tr>
 	</table>
 
