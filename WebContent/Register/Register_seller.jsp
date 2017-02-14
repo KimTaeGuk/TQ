@@ -5,16 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Register</title>
+<title>Register_Seller</title>
 
 <link rel="stylesheet" type="text/css" href="../css/All.css">
 <script src="../js/jquery-3.1.1.min.js"></script>
-<script src="../js/Register_view.js"></script>
+<script src="../js/Register_seller.js"></script>
+
 </head>
 <body>
-<H2>회원가입</H2>
+<H2>판매자 회원가입</H2>
 <hr/>
-<form name="fm" id="fm" method="POST" action="./Register_proc.jsp">
+<form name="fm" id="fm" method="POST" action="./Register_seller_proc.jsp">
 	<!-- placeholder : text 안에 회색깔의 글자 표시 -->
 	<table>
 		<tr>
@@ -31,6 +32,14 @@
 			<td>비밀번호 확인 </td>
 			<td><input type="password" id="confirm_pw"/></td>
 		</tr>
+		
+		
+		<tr>
+			<td>이메일</td>
+			<td colspan=2><input type="text"  id="email" name="register_email"/></td>
+		</tr>
+		
+		
 		<tr>
 			<td>이름</td>
 			<td colspan=2><input type="text" name="register_name" id="name"/></td>

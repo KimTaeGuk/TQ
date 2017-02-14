@@ -18,7 +18,7 @@
 <body>
 <%	
 		String Get_id=request.getParameter("id");
-		RegisterBean bean=Register_Access.Chk_seller_id(Get_id);
+		RegisterBean bean=Register_Access.Chk_id(Get_id);
 		
 		String id=bean.getRegister_id();
 		

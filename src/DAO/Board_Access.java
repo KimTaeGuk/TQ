@@ -1,18 +1,15 @@
 package DAO;
 import java.util.Date;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
+
 import DBCon.DBCon;
 import DTO.BoardBean;
 import DAO.Comment_Access;
 import DAO.Reply_Access;
+import DAO.Notice_Access;
 
 public class Board_Access{
 	DBCon db=new DBCon();
@@ -58,6 +55,39 @@ public class Board_Access{
 		return data;
 	}
 	
+	/////////////////////////////////////////////////////////////////////
+	///////////////////////////////판매자 확인///////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	
+	public boolean Seller_pasing(String id, String pw){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		
+		try{
+			sql="SELECT * FROM SELLER WHERE ID=? && PW=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+					return true;
+			}	else {
+					return false;
+			}
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally {
+				db.close(rs, pstmt, con);
+		}
+		
+		return false;
+	}
+	
 	/////////////////////////////////////////////////////////////////
 	///////////////////////////////삽입///////////////////////////////
 	////////////////////////////////////////////////////////////////
@@ -65,7 +95,6 @@ public class Board_Access{
 	public void insert(BoardBean BoardBean, int count){
 		Connection con=db.connect();
 		PreparedStatement pstmt=null;
-		ResultSet rs=null;
 		
 		try{
 			sql="insert into board(num, id, title, content, date, count, star, kategory) values (?,?,?,?,NOW(),?,?,?)";
@@ -293,6 +322,51 @@ public class Board_Access{
 		return list;
 	}
 
+	//////////////////////////////////////////////////////////////////
+	///////////////////////////////검색////////////////////////////////
+	/////////////////////////////////////////////////////////////////
+	
+	public ArrayList<BoardBean> board_search(String search){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		ArrayList<BoardBean> list=new ArrayList<BoardBean>();
+				
+		try{
+			sql="SELECT * FROM BOARD WHERE TITLE LIKE ? || CONTENT LIKE ? || ID LIKE ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+search+"%");
+			pstmt.setString(2, "%"+search+"%");
+			pstmt.setString(3, "%"+search+"%");
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()){
+				BoardBean bean=new BoardBean();
+				
+				bean.setBoard_num(rs.getInt("num"));
+				bean.setBoard_count(rs.getInt("count"));
+				bean.setBoard_star(rs.getInt("star"));
+				
+				bean.setBoard_id(rs.getString("id"));
+				bean.setBoard_title(rs.getString("title"));
+				bean.setBoard_content(rs.getString("content"));
+				bean.setBoard_kategory(rs.getString("kategory"));
+				bean.setBoard_date(rs.getString("date"));
+				
+				list.add(bean);
+			}
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally {
+				db.close(pstmt, con);
+		}
+		
+		return list;
+	}
+	
 }
 
 

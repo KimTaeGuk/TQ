@@ -35,7 +35,38 @@ public class Register_Access {
 		}	catch(Exception e){
 				e.printStackTrace();
 		}	finally{
+				db.close(rs, pstmt, con);
+		}
+	}
+	
+	/////////////////////////////////////////////////////////////////////////
+	///////////////////////////////판매자 가 입///////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+
+	
+	public void Register_seller_insert(RegisterBean RegisterBean){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String birth=RegisterBean.getRegister_year()+"."+RegisterBean.getRegister_month()+"."+RegisterBean.getRegister_day();
+		
+		try{
+			sql="insert into seller(ID, PW, NAME, BIRTH,EMAIL) values(?,?,?,?,?)";
+			pstmt=con.prepareStatement(sql);
 			
+			pstmt.setString(1, RegisterBean.getRegister_id());
+			pstmt.setString(2, RegisterBean.getRegister_pw());
+			pstmt.setString(3, RegisterBean.getRegister_name());
+			pstmt.setString(4, birth);
+			pstmt.setString(5, RegisterBean.getRegister_email());
+			
+			pstmt.execute();
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally{
+				db.close(rs, pstmt, con);
 		}
 	}
 	
@@ -60,7 +91,60 @@ public class Register_Access {
 				register_bean.setRegister_id(rs.getString("ID"));
 
 			}	else {
+					sql="SELECT * FROM SELLER WHERE ID=?";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, register_id);
+					rs=pstmt.executeQuery();
+					
+					if(rs.next()){
+						register_bean.setRegister_id(rs.getString("ID"));
+						
+					}	else {
+						
+					}
+			}
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally{
+				db.close(pstmt,con);
+		}
+		
+		return register_bean;
+	}
+	
+	/////////////////////////////////////////////////////////////////////////
+	///////////////////////////////판매자 ID 중복 검사/////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+
+	
+	public RegisterBean Chk_seller_id(String register_id){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		RegisterBean register_bean=new RegisterBean();
+		
+		try{
+			sql="SELECT * FROM SELLER WHERE ID=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, register_id);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				register_bean.setRegister_id(rs.getString("ID"));
+
+			}	else {
+				sql="SELECT * FROM BUYER WHERE ID=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, register_id);
+				rs=pstmt.executeQuery();
 				
+				if(rs.next()){
+					register_bean.setRegister_id(rs.getString("ID"));
+					
+				}	else {
+					
+				}				
 			}
 			
 		}	catch(Exception e){
