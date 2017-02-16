@@ -20,12 +20,9 @@
 %>
 <input type="button" value="로그아웃" onclick="window.location='./Login/Logout_proc.jsp'" />
 <input type="button" value="로그인" onclick="window.location='./Login/Login_view.jsp'" />
-<input type="button" value="물건등록" onclick="Goods_submit();" />
 <input type="button" value="게시판 리스트" onclick="window.location='./Board/Board_list.jsp'" />
 <input type="button" value="물품 등록" onclick="window.location='./Goods/Goods_list.jsp'" alt="나중에 Seller 테이블의 사람만 가능하도록 할 것"/>
 <input type="button" value="회원탈퇴" onclick="window.location='./Login/Login_delete.jsp'" />
 <input type="button" value="회원수정" onclick="window.location='./Login/Login_modify.jsp'" />
-
-
 </body>
 </html>

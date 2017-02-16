@@ -1,7 +1,9 @@
 package DAO;
 import java.util.Date;
+import java.util.Calendar;
 
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.ArrayList;
 import java.sql.*;
 
@@ -314,6 +316,44 @@ public class Board_Access{
 
 	}
 	
+	/////////////////////////////////////////////////////////////////////////
+	///////////////////////////////~일전 ~달 전 나누기////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	
+	public String date_eq(String date){
+		Calendar cal=Calendar.getInstance();
+
+		int year=cal.get(Calendar.YEAR);
+		int month=cal.get(Calendar.MONTH)+1;
+		int day=cal.get(Calendar.DATE);
+		
+		int date_year=Integer.parseInt(date.substring(0,4));		//년
+		int date_month=Integer.parseInt(date.substring(5,7));		//달
+		int date_day=Integer.parseInt(date.substring(8,10));		//일
+
+		String date_today=date.substring(11,16);	//일이 같을 시 오늘 시간
+		
+		int m_year=year-date_year;
+		int m_month=month-date_month;
+		int m_day=day-date_day;
+		
+		//올해가 아니고 1년이 차이 안날 경우
+		if(m_year!=0){
+			if(m_month<0){
+					int n=12-date_month+month;
+					return n+"달 전";
+			}	else return m_year+"년 전";
+		}	else {
+			//올해인데 차이
+			if(m_month!=0)return m_month+"달 전";
+			else {
+				//일이 다를 경우
+				if(m_day!=0) return date_month+"월"+date_day + "일";
+				else return date_today;
+			}
+		}	// m_year != else
+}
+	
 	
 	
 	/////////////////////////////////////////////////////////////////////////
@@ -329,7 +369,7 @@ public class Board_Access{
 		ResultSet rs=null;
 		
 		try{
-			sql="select * from board order by date desc";
+			sql="select * from board order by num desc";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			

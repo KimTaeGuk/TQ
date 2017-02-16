@@ -141,6 +141,8 @@
 							<td>
 								<%=title%>
 								<%
+								
+								//댓글 달린 갯수
 									int comment_num=Board_Access.comment_count(num);
 									if(comment_num!=0){
 										out.print("["+comment_num+"]");
@@ -154,7 +156,7 @@
 							</td>
 							<td><%=id%></td>
 							<td><%=content%></td>
-							<td><%=date%></td>
+							<td><%=Board_Access.date_eq(date)%></td>
 							<td><%=count%></td>
 							<td><%
 								if(star==5) out.print("★★★★★");
