@@ -9,6 +9,7 @@
 <%@ page import="java.io.*"%>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Vector" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,7 +18,29 @@
 </head>
 <body>
 <%
-	String uploadPath="D:\\upload\\";
+String uploadPath="D:\\upload\\";
+
+int size=10*1024*1024;
+
+try{
+	//MultipartRequest를 사용할 경우 파일 이름을 변경하여 업로드 할 수 없다
+	//new MultipartRequest(request, 파일 저장 경로, 파일크기, 인코딩)
+	MultipartRequest multi=new MultipartRequest(request,uploadPath,size,"UTF-8", new DefaultFileRenamePolicy());
+
+	//enumeration 크기를 알 수 없다
+	Enumeration params=multi.getParameterNames();
+	
+	while(params.hasMoreElements()){
+		out.println("A");
+	}
+	
+}	catch(FileNotFoundException e){
+		e.printStackTrace();
+}	finally {
+		
+}
+	
+	/* 	String uploadPath="D:\\upload\\";
 
 	int size=10*1024*1024;
 
@@ -57,7 +80,8 @@
 	}	catch(Exception e){
 		
 	}
-	out.print("파일명"+filename+"<br>");
+	out.print("파일명"+filename+"<br>"); */
+	
 %>
 </body>
 </html>

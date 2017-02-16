@@ -1,3 +1,4 @@
+<%@page import="sun.java2d.pipe.SpanShapeRenderer.Simple"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
@@ -51,6 +52,7 @@
 	ArrayList<BoardBean> list=Board_Access.Board_List();
 
 	int size=list.size();
+	
 	////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////공지사항 최 상단에 위치시키기////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////
@@ -74,12 +76,11 @@
 
 	if(Board_Access.Seller_pasing(seller_id, seller_pw)){
 %>
-<input type="button" onclick="window.location='./notice/notice_write.jsp'" value="공지사항 글 쓰기" />
+<input type="button" onclick="window.location='./notice/notice_write.jsp'" value="공지사항 글 쓰기" /><br>
 <%
 	}
 %>
 <input type="button" onclick="window.location='./Board_write.jsp'" value="글쓰기" />
-
 	<table style="border:1px solid black;">
 		<thead>
 			<tr>
@@ -105,7 +106,7 @@
 							String notice_id=noticebean.getNotice_id();
 							String notice_title=noticebean.getNotice_title();
 							String notice_content=noticebean.getNotice_content();
-							String notice_date=noticebean.getNotice_date();
+							String notice_date=noticebean.getNotice_date();			
 				%>
 							<tr onclick="notice_view(<%=j%>);" bgcolor="skyblue"  >
 								<td><%=notice_num%></td>
@@ -140,6 +141,10 @@
 							<td>
 								<%=title%>
 								<%
+									int comment_num=Board_Access.comment_count(num);
+									if(comment_num!=0){
+										out.print("["+comment_num+"]");
+									}
 									if(new_img.equals("1")){
 								%>
 									<img src="../img/new.jpg" />

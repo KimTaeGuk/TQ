@@ -153,7 +153,28 @@ public class Comment_Access {
 		}	catch(Exception e){
 				e.printStackTrace();
 		}	finally {
+				db.close(pstmt, con);
+		}
+	}
+	
+	//////////////////////////게시판 번호보다 작은 게시판 삭제 시/////////////////////////////
+	
+	public void lowerboard_comment_delete(int board_num){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		
+		try{
+			sql="UPDATE COMMENT SET BOARD_NUM=BOARD_NUM-1 WHERE BOARD_NUM>?";
+			pstmt=con.prepareStatement(sql);
 			
+			pstmt.setInt(1, board_num);
+			
+			pstmt.executeUpdate();
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally {
+				db.close(pstmt, con);
 		}
 	}
 	

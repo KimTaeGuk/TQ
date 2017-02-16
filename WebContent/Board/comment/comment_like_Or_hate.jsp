@@ -24,8 +24,8 @@
 		like_cnt=Comment_Access.Comment_Like_cnt(CommentBean.getBoard_num(), CommentBean.getComment_num());	
 		hate_cnt=Comment_Access.Comment_Hate_cnt(CommentBean.getBoard_num(), CommentBean.getComment_num());
 %>
-		<input type="button" name="CancelLike_btn" value="<%=like_cnt%> 좋아요취소" onclick="alert('이미 좋아요를 눌렀당')"/>
-		<input type="button" value="<%=hate_cnt%> 싫어요" onclick="alert('이미 좋아요를 눌렀당')"/>
+		<input type="button" name="CancelLike_btn" value="<%=like_cnt%> 좋아요" onclick="alert('이미 좋아요를 눌렀습니다')"/>
+		<input type="button" value="<%=hate_cnt%> 싫어요" onclick="alert('이미 좋아요를 눌렀습니다')"/>
 <%
 	}
 	else {
@@ -36,8 +36,8 @@
 		like_cnt=Comment_Access.Comment_Like_cnt(CommentBean.getBoard_num(), CommentBean.getComment_num());	
 		hate_cnt=Comment_Access.Comment_Hate_cnt(CommentBean.getBoard_num(), CommentBean.getComment_num());
 %>
-		<input type="button" value="<%=like_cnt%> 좋아요" onclick="alert('이미 싫어요를 눌렀당')"/>
-		<input type="button" value="<%=hate_cnt%> 싫어요취소" onclick="alert('이미 싫어요를 눌렀당')"/>
+		<input type="button" value="<%=like_cnt%> 좋아요" onclick="alert('이미 싫어요를 눌렀습니다')"/>
+		<input type="button" value="<%=hate_cnt%> 싫어요" onclick="alert('이미 싫어요를 눌렀습니다')"/>
 <%
 	}
 %>

@@ -1,10 +1,6 @@
 package DBCon;
 import java.sql.*;
 
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-
-import java.io.Console;
-
 public class DBCon {
 	
 	public DBCon() {}

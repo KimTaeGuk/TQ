@@ -70,7 +70,7 @@ public class Reply_Access {
 	/////////////////////////////////////////////////////////////////
 	///////////////////////////2차 댓글삭제//////////////////////////////
 	////////////////////////////////////////////////////////////////
-	
+		
 	//////////////////////////게시판 삭제 시/////////////////////////////
 	public void board_reply_delete(int board_num){
 		Connection con=db.connect();
@@ -89,6 +89,28 @@ public class Reply_Access {
 				db.close(pstmt, con);
 		}
 	}
+	
+	//////////////////////////게시판 번호보다 작은 게시판 삭제 시/////////////////////////////
+	
+	public void lowerboard_reply_del(int board_num){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		
+		try{
+			sql="UPDATE REPLY SET BOARD_NUM=BOARD_NUM-1 WHERE BOARD_NUM>?";
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setInt(1, board_num);
+			
+			pstmt.executeUpdate();
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally {
+				db.close(pstmt, con);
+		}
+	}
+	
 	
 	///////////////////////////댓글 삭제 시/////////////////////////////
 	public void comment_reply_delete(int board_num, int comment_num){

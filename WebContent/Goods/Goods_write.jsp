@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
+<!-- <script>
 function previewFiles() {
 
 	  var preview = document.querySelector('#preview');
@@ -28,7 +28,6 @@ function previewFiles() {
 
 	      reader.readAsDataURL(file);
 	    }
-
 	  }
 
 	  if (files) {
@@ -36,12 +35,12 @@ function previewFiles() {
 	  }
 
 	}
-</script>
+</script> -->
 </head>
 <body>
+<div id="preview"></div>
 <form name="fileForm" id="fileForm" method="POST" action="Goods_write_proc.jsp" enctype="multipart/form-data">
 <input name="browse" id="browse" type="file" onchange="previewFiles()" multiple>
-<div id="preview"></div>
 <input type="submit" value="파일 전송" />
 </form>
 </body>

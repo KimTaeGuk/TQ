@@ -15,6 +15,36 @@ public class Board_Access{
 	DBCon db=new DBCon();
 	String sql="";
 	
+	/////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////댓글 수 세기////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	
+	public int comment_count(int num){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int cnt=0;
+		
+		try{
+			sql="SELECT COUNT(*) FROM COMMENT WHERE BOARD_NUM=?";
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				cnt=rs.getInt(1);
+			}
+		}	catch(Exception e){
+			
+		}	finally {
+				db.close(rs, pstmt, con);
+		}
+		
+		return cnt;
+	}
+	
 	//////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////게시판 수 세기////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
@@ -126,11 +156,17 @@ public class Board_Access{
 		PreparedStatement pstmt=null;
 		
 		try{
+			
+			// 댓글 달린 게시판 삭제시/////////////////////////
 			Comment_Access CA=new Comment_Access();
 			CA.board_comment_delete(num);
+			CA.lowerboard_comment_delete(num);			//댓글 번호 내리기
 			
 			Reply_Access RA=new Reply_Access();
 			RA.board_reply_delete(num);
+			RA.lowerboard_reply_del(num);
+			/////////////////////////////////////////
+			
 			
 			sql="DELETE FROM board WHERE num=?";
 			
@@ -148,7 +184,7 @@ public class Board_Access{
 	}
 	
 	//////////////////////////////////////////////////////////////////
-	///////////////////////////삭제 후 num 올리기//////////////////////////
+	///////////////////////////삭제 후 num 내리기//////////////////////////
 	////////////////////////////////////////////////////////////////
 	
 	public void up_num(int num){
@@ -293,7 +329,7 @@ public class Board_Access{
 		ResultSet rs=null;
 		
 		try{
-			sql="select * from board";
+			sql="select * from board order by date desc";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			
@@ -368,82 +404,3 @@ public class Board_Access{
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Servlet implementation class Board_Access
- *//*
-@WebServlet("/Board_Access")
-public class Board_Access extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    *//**
-     * @see HttpServlet#HttpServlet()
-     *//*
-    public Board_Access() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	*//**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 *//*
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	
-		System.out.println("doGet");
-	}
-
-	*//**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 *//*
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-		
-		System.out.println("doPost");
-	}
-
-}*/
