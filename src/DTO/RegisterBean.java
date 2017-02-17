@@ -8,6 +8,7 @@ public class RegisterBean {
 	private String register_day;
 	private String register_month;
 	private String register_email;
+	private String photo_identification;
 	
 	
 	public String getRegister_id() {
@@ -52,5 +53,10 @@ public class RegisterBean {
 	public void setRegister_email(String register_email) {
 		this.register_email = register_email;
 	}
-
+	public String getPhoto_identification() {
+		return photo_identification;
+	}
+	public void setPhoto_identification(String photo_identification) {
+		this.photo_identification = photo_identification;
+	}
 }

@@ -26,11 +26,12 @@
 		
 		login_id=bean.getLogin_id();
 		login_pw=bean.getLogin_pw();		
-
+		String login_photo=bean.getLogin_photo_identification();
 			
 			if(login_id!=null && login_pw!=null){
 				session.setAttribute("id", login_id);
 				session.setAttribute("pw", login_pw);
+				session.setAttribute("photo",login_photo);	
 				session.setAttribute("is_login", true);
 				
 				response.sendRedirect("../index.jsp");

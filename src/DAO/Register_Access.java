@@ -22,13 +22,14 @@ public class Register_Access {
 		String birth=RegisterBean.getRegister_year()+"."+RegisterBean.getRegister_month()+"."+RegisterBean.getRegister_day();
 		
 		try{
-			sql="insert into buyer(ID, PW, NAME, BIRTH) values(?,?,?,?)";
+			sql="insert into buyer(ID, PW, NAME, BIRTH, photo_identification) values(?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			
 			pstmt.setString(1, RegisterBean.getRegister_id());
 			pstmt.setString(2, RegisterBean.getRegister_pw());
 			pstmt.setString(3, RegisterBean.getRegister_name());
 			pstmt.setString(4, birth);
+			pstmt.setString(5, RegisterBean.getPhoto_identification());
 			
 			pstmt.execute();
 			

@@ -25,9 +25,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="../js/jquery-3.1.1.min.js"></script><!-- 합쳐지고 최소화된 최신 CSS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.min.css">
+<script src="./bootstrap/js/bootstrap.min.js"></script> -->
+
 <script>
+		function board_write(){
+			var id="<%=session.getAttribute("id")%>";
+			if(id == "null" || id =="" || id == undefined){
+					alert("로그인 후 가능합니다.");
+			}	else {
+					window.location="./Board_write.jsp";
+			}
+		}
 	function Go_view(num){
-		var num=num+1;
 		window.location="./Board_view.jsp?num="+num;
 	}
 	
@@ -36,39 +51,18 @@
 		window.location="./notice/notice_view.jsp?num="+num;
 	}
 </script>
-<style>
-	td{
-		border: 1px double black;
-	}
-</style>
 </head>
 <body>
 <%
 	request.setCharacterEncoding("UTF-8");
 
 	int total=Board_Access.count();
-	out.print("총 개시물 갯 수 : " + total+"<br>");
-	
 	ArrayList<BoardBean> list=Board_Access.Board_List();
-
 	int size=list.size();
 	
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////공지사항 최 상단에 위치시키기////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	
 	int notice_sum=Notice_Access.notice_count();
-	out.print("총 공지사항 갯 수 : " + notice_sum +"<br>");
-	
 	ArrayList<NoticeBean> noticelist=Notice_Access.Notice_list();
-	
 	int notice_size=noticelist.size();
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////
-	
-	
 %>
 <%
 	String seller_id=(String)session.getAttribute("id");
@@ -80,9 +74,8 @@
 <%
 	}
 %>
-<input type="button" onclick="window.location='./Board_write.jsp'" value="글쓰기" />
-	<table style="border:1px solid black;">
-		<thead>
+	<table class="table">
+		<thead class="thead-inverse">
 			<tr>
 				<th>No. </th>
 				<th>Title </th>
@@ -109,7 +102,7 @@
 							String notice_date=noticebean.getNotice_date();			
 				%>
 							<tr onclick="notice_view(<%=j%>);" bgcolor="skyblue"  >
-								<td><%=notice_num%></td>
+								<th scope="row"><%=notice_num%></th>
 								<td><%=notice_title%></td>
 								<td><%=notice_id%></td>
 								<td><%=notice_content%></td>
@@ -134,10 +127,10 @@
 						
 						String new_img=Board_Access.today_new(date);
 				%>
-						<tr onclick="Go_view(<%=i%>);">
-							<td>
+						<tr onclick="Go_view(<%=num%>);">
+							<th scope="row">
 								<%=num%>
-							</td>
+							</th>
 							<td>
 								<%=title%>
 								<%
@@ -173,12 +166,15 @@
 	<tfoot>
 		<form method="POST" action="./Board_ser.jsp">
 			<tr>
-				<td colspan=7 style="text-align: center;">
+				<td class="row" colspan=6 style="text-align: center;">
 					<input type="text" name="ser" />
 					<input type="submit" value="검색" />
 				</td>
-			</tr>
 		</form>
+				<td>
+					<input type="button" onclick="board_write();" value="글쓰기" />
+				</td>
+			</tr>
 	</tfoot>
 	</table>
 </body>

@@ -1,7 +1,9 @@
 package DAO;
 import java.sql.*;
+import java.io.*;
 import DBCon.DBCon;
 import DTO.LoginBean;
+import javafx.application.Application;
 
 public class Login_Access {
 	DBCon db=new DBCon();
@@ -28,6 +30,7 @@ public class Login_Access {
 			if(rs.next()){
 				login_bean.setLogin_id(rs.getString("ID"));
 				login_bean.setLogin_pw(rs.getString("PW"));
+				login_bean.setLogin_photo_identification(rs.getString("photo_identification"));
 			}
 		}	catch(Exception e) {
 				e.printStackTrace();
@@ -72,8 +75,26 @@ public class Login_Access {
 	public void login_del(String id, String pw){
 		Connection con=db.connect();
 		PreparedStatement pstmt=null;
-		
+		ResultSet rs=null;
+		String fileName=null;
 		try{
+			sql="SELECT PHOTO_IDENTIFICATION FROM BUYER WHERE ID=? && PW=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				fileName=rs.getString(1);
+			}
+			String realPath="D:\\WorkSpace_Tae\\PortPolio\\WebContent\\upload\\";
+			File f=new File(realPath+fileName);
+			
+			if(f.exists()){
+				f.delete();
+			}
+			
 			sql="DELETE FROM BUYER WHERE ID=? && PW=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -84,9 +105,8 @@ public class Login_Access {
 		}	catch(Exception e){
 				e.printStackTrace();
 		}	finally {
-				db.close(pstmt, con);
+				db.close(rs, pstmt, con);
 		}
-
 	}
 	
 	/////////////////////////////////////////////////////////////////////////

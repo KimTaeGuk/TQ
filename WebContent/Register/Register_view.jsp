@@ -10,11 +10,60 @@
 <link rel="stylesheet" type="text/css" href="../css/All.css">
 <script src="../js/jquery-3.1.1.min.js"></script>
 <script src="../js/Register_view.js"></script>
+<script>
+function previewFiles() {
+	if(!$('#preview').is(':empty')){
+		$('#preview').empty();
+	}
+	  var preview = document.querySelector('#preview');
+	  var files   = document.querySelector('input[type=file]').files;
+
+	  function readAndPreview(file) {
+
+	    // `file.name` 형태의 확장자 규칙에 주의하세요
+	    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+	      var fileSize=document.getElementById('browse').files[0].size;
+	      
+	  	  var maxsize = 1024*1024*10;
+
+	  	  if(fileSize > maxsize){
+	  		  	alert("10MB이하의 이미지만 사용가능합니다.");
+	    		$("#browse").val("");
+	    		return false;
+	  	  }	else {	  	  
+	  		  
+	  		  var reader = new FileReader();
+
+		      reader.addEventListener("load", function () {
+		        var image = new Image();
+		        image.height = 100;
+		        image.title = file.name;
+		        image.src = this.result;
+		        preview.appendChild( image );
+		      }, false);
+	
+		      reader.readAsDataURL(file);
+	      }		//else
+	  	  
+
+	    } 	else {
+	    		alert("이미지만 가능합니다(jpg,gif,jpeg)");
+	    		$("#browse").val("");
+	    		return false;
+	    }	//else
+
+	  }		//function
+
+	  if (files) {
+	    [].forEach.call(files, readAndPreview);
+	  }
+}
+</script>
 </head>
 <body>
 <H2>회원가입</H2>
 <hr/>
-<form name="fm" id="fm" method="POST" action="./Register_proc.jsp">
+<form name="fm" id="fm" method="POST" action="./Register_proc.jsp" enctype="multipart/form-data">
 	<!-- placeholder : text 안에 회색깔의 글자 표시 -->
 	<table>
 		<tr>
@@ -69,11 +118,16 @@
 		</tr>
 	</table>
 	<div>
-		<span>
-
-		</span>
+			<span>
+	
+			</span>
 	</div>
-	<input type="hidden" id="id_hidden" />
+	<input type="hidden" id="id_hidden" />	
+		<div>
+		프로필 사진
+		<input id="browse" name="photo_identification" type="file" onchange="previewFiles()" accept=".jpg , .png, .jpeg, .gif">
+		<div id="preview"></div>
+	</div>
 </form>
 </body>
 </html>

@@ -348,7 +348,7 @@ public class Board_Access{
 			if(m_month!=0)return m_month+"달 전";
 			else {
 				//일이 다를 경우
-				if(m_day!=0) return date_month+"월"+date_day + "일";
+				if(m_day!=0) return date_year+"년 "+date_month+"월 "+date_day + "일";
 				else return date_today;
 			}
 		}	// m_year != else

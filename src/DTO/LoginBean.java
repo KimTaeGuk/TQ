@@ -5,6 +5,7 @@ public class LoginBean {
 	private String login_pw;
 	private String login_name;
 	private String login_birth;
+	private String login_photo_identification;
 	
 	public String getLogin_id() {
 		return login_id;
@@ -29,5 +30,11 @@ public class LoginBean {
 	}
 	public void setLogin_birth(String login_birth) {
 		this.login_birth = login_birth;
+	}
+	public String getLogin_photo_identification() {
+		return login_photo_identification;
+	}
+	public void setLogin_photo_identification(String login_photo_identification) {
+		this.login_photo_identification = login_photo_identification;
 	}
 }
