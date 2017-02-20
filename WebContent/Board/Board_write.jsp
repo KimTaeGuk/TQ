@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="../ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <form action="./Board_write_proc.jsp" method="POST">
@@ -15,7 +16,7 @@
 		</tr>
 		<tr>
 			<td>Content</td>
-			<td><textarea name="board_content" cols="40" rows="10"></textarea></td>
+			<td><textarea name="board_content" id="editor1" cols="80" rows="10"></textarea></td>
 		</tr>
 		<tr>
 			<td>Star</td>
@@ -36,5 +37,8 @@
 	<input type="hidden" name="board_id" value="<%=session.getAttribute("id")%>">
 	<input type="hidden" name="board_kategory" value="Test" />
 </form>
+<script>
+	CKEDITOR.replace('board_content');
+</script>
 </body>
 </html>
