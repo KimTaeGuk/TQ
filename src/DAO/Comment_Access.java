@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import DBCon.DBCon;
 import DTO.CommentBean;
 import DAO.Reply_Access;
+import DTO.MsgInformBean;
 
 public class Comment_Access {
 	DBCon db=new DBCon();
@@ -46,7 +47,7 @@ public class Comment_Access {
 		return cnt;
 	}
 		
-	/////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
 	///////////////////////////1차 댓글삽입//////////////////////////////
 	////////////////////////////////////////////////////////////////
 	
@@ -73,9 +74,87 @@ public class Comment_Access {
 		}
 	}
 	
-	/////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
+	///////////////////////////작성한 게시판 번호 출력//////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+
+	public ArrayList<Integer> Id_BoardNum(String id){
+		ArrayList<Integer> result=new ArrayList<Integer>();
+		
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try{
+			sql="select num from board where id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()){
+				result.add(rs.getInt(1));
+			}
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally {
+				db.close(rs, pstmt, con);
+		}
+		
+		return result;
+	}
+	
+	//////////////////////////////////////////////////////////////////////////
+	//////////////////////////////댓글 알림 기능 출력//////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+	
+	public ArrayList<MsgInformBean> msg_inform(ArrayList<Integer> num){
+		ArrayList<MsgInformBean> msgInfo=new ArrayList<MsgInformBean>();
+		String board_id=null;
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try{
+			for(int i: num){
+				sql="select id from board where num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, i);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()){
+					board_id=rs.getString(1);
+				}
+				
+					sql="select * from comment where board_num=? && comment_id!=?";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setInt(1,i);
+					pstmt.setString(2, board_id);
+					rs=pstmt.executeQuery();
+						
+					while(rs.next()){
+						MsgInformBean msgbean=new MsgInformBean();
+						
+						msgbean.setBoard_id(board_id);
+						msgbean.setBoard_num(rs.getInt("board_num"));
+						msgbean.setComment_content(rs.getString("comment_content"));
+						msgbean.setComment_date(rs.getString("comment_date"));
+						msgbean.setComment_id(rs.getString("comment_id"));
+						
+						msgInfo.add(msgbean);
+					}
+			}
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally {
+				db.close(rs, pstmt, con);
+		}
+		return msgInfo;
+	}
+	
+	///////////////////////////////////////////////////////////////////
 	///////////////////////////1차 댓글수정//////////////////////////////
-	////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////
 	
 	public void comment_modify(CommentBean commentbean){
 		Connection con=db.connect();

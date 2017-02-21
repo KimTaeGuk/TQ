@@ -3,14 +3,13 @@ import java.sql.*;
 import java.io.*;
 import DBCon.DBCon;
 import DTO.LoginBean;
-import javafx.application.Application;
 
 public class Login_Access {
 	DBCon db=new DBCon();
 	String sql="";
 	
 	/////////////////////////////////////////////////////////////////////////
-	///////////////////////////////로그인 처리///////////////////////////////////
+	///////////////////////////////濡쒓렇�씤 泥섎━///////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 
 	public LoginBean Login_proc(String login_id,String login_pw){
@@ -41,7 +40,7 @@ public class Login_Access {
 	}
 	
 	/////////////////////////////////////////////////////////////////////////
-	///////////////////////////////판매자 처리///////////////////////////////////
+	///////////////////////////////�뙋留ㅼ옄 泥섎━///////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 
 	public LoginBean Seller_login(LoginBean loginbean,String login_id,String login_pw){
@@ -69,7 +68,7 @@ public class Login_Access {
 	}
 	
 	/////////////////////////////////////////////////////////////////////////
-	///////////////////////////////회 원 탈 퇴///////////////////////////////////
+	///////////////////////////////�쉶 �썝 �깉 �눜///////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 	
 	public void login_del(String id, String pw){
@@ -110,7 +109,7 @@ public class Login_Access {
 	}
 	
 	/////////////////////////////////////////////////////////////////////////
-	///////////////////////////////회 원 변 경///////////////////////////////////
+	///////////////////////////////�쉶 �썝 蹂� 寃�///////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 	
 	public void login_modify(LoginBean loginbean) {
@@ -118,12 +117,13 @@ public class Login_Access {
 		PreparedStatement pstmt=null;
 		
 		try{
-			sql="UPDATE BUYER SET NAME=? WHERE ID=? && PW=?";
+			sql="UPDATE BUYER SET NAME=?,photo_identification=? WHERE ID=? && PW=?";
 			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, loginbean.getLogin_name());
-			pstmt.setString(2, loginbean.getLogin_id());
-			pstmt.setString(3, loginbean.getLogin_pw());
+			pstmt.setString(2, loginbean.getLogin_photo_identification());
+			pstmt.setString(3, loginbean.getLogin_id());
+			pstmt.setString(4, loginbean.getLogin_pw());
 		
 			pstmt.executeUpdate();
 			
@@ -133,4 +133,29 @@ public class Login_Access {
 				db.close(pstmt, con);
 		}
 	}
+	
+	public String photo_mod(String id){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String result=null;
+		
+		try{
+			sql="select photo_identification from buyer where id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,id);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				result=rs.getString(1);
+			}
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally{
+				db.close(rs, pstmt, con);
+		}
+		return result;
+	}
+
 }

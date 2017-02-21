@@ -26,7 +26,8 @@
 	int maxsize = 1024 * 1024 * 10;
 	
 	//경로
-	String savePath="D:\\WorkSpace_Tae\\PortPolio\\WebContent\\upload\\";
+	String savePath="C:\\Users\\itwill\\workspace\\PortPolio\\WebContent\\upload\\";
+		
 	
 	// 업로드 파일 명
 	String uploadFile="";

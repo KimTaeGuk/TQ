@@ -11,10 +11,11 @@
 	String login_pw=(String)session.getAttribute("pw");
 %>
 <body>
-	<form method="POST" action="./Login_modify_proc.jsp">
+	<form method="POST" action="./Login_modify_proc.jsp" enctype="multipart/form-data">
 		이름<input type="text" name="login_name" />
 		<input type="hidden" name="login_id" value="<%=login_id%>" />
 		<input type="hidden" name="login_pw" value="<%=login_pw%>" />
+		<input type="file" name="login_photo_identification">
 		<input type="submit" value="수정 완료" />
 	</form>
 </body>

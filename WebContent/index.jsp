@@ -1,5 +1,12 @@
+<%@page import="java.io.File"%>
+<%@page import="DTO.MsgInformBean"%>
+<%@page import="DAO.Comment_Access"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
+<jsp:useBean id="Comment_Access" class="DAO.Comment_Access" />
+<jsp:useBean id="Login_Access" class="DAO.Login_Access" />
+<jsp:useBean id="MsgInformBean" class="DTO.MsgInformBean" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,11 +18,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script>
-
+function mailImg_change(){
+	//세션 생성하여 봤다고 하기
+	$("#img_info").attr("src","./img/mail_open.png");
+}
 //////////////////////////////로그인////////////////////////////////////
 	$(document).ready(function(){
-		
-		
 	});
 	
 	function showLogin(){
@@ -82,7 +90,6 @@
 	out.print(session.getAttribute("pw"));
 %>
 <input type="button" value="게시판 리스트" onclick="window.location='./Board/Board_list.jsp'" />
-<input type="button" value="물품 등록" onclick="window.location='./Goods/Goods_list.jsp'" alt="나중에 Seller 테이블의 사람만 가능하도록 할 것"/>
 <input type="button" value="회원탈퇴" onclick="window.location='./Login/Login_delete.jsp'" />
 <input type="button" value="회원수정" onclick="window.location='./Login/Login_modify.jsp'" />
 
@@ -126,26 +133,58 @@
     </div><!-- /container -->
 <%
 	}	else {
-		String photo=(String)session.getAttribute("photo");
-		int photo_len=photo.length();
-		String photo_null=photo.substring(photo_len-4);
+		ArrayList<Integer> num=Comment_Access.Id_BoardNum((String)session.getAttribute("id"));
+		ArrayList<MsgInformBean> msginfo=Comment_Access.msg_inform(num);
+		
+		String imgName=Login_Access.photo_mod((String)session.getAttribute("id"));
+		File imgpath=new File("C:\\Users\\itwill\\workspace\\PortPolio\\WebContent\\upload\\"+imgName);
+		
+		if(imgpath.isFile()){
 %>
-		<input type="button" class="btn btn-info" value="로그아웃" onclick="window.location='./Login/Logout_proc.jsp'" />
-<%		
-		if(photo_null.equals("null")){
-%>
-			<img src="./img/null_photo.png" alt="photo identification" style="width:100px; height:100px; border-radius:50%;"/>
+			<img src="./upload/<%=imgName%>" alt="photo identification" style="width:100px; height:100px; border-radius:50%;"/>
+
 <%
 		}	else {
 %>
-			<img src="./upload/<%=(String)session.getAttribute("photo")%>" alt="photo identification" style="width:100px; height:100px; border-radius:50%;"/><br>
-<%			
+			<img src="./img/null_photo.png" alt="photo identification" style="width:100px; height:100px; border-radius:50%;"/>
+<%
 		}
+%>
+		<input type="button" class="btn btn-info" value="로그아웃" onclick="window.location='./Login/Logout_proc.jsp'" />
+		<!-- 댓글 달림 알림창 -->
+		<div class="btn-group" role="group">
+		    <a href="#" onclick="mailImg_change();" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+		      <img src="./img/mail_close.GIF" id="img_info" alt="info" style="width:50px; height:35px;"/>
+		    </a>
+		    <ul class="dropdown-menu" role="menu">
+<%
+		if(msginfo.size()>0){
+			for(int i=0; i < msginfo.size(); i++){
+				MsgInformBean msgbean=msginfo.get(i);
+				
+				int board_num=msgbean.getBoard_num();			
+				String comment_id=msgbean.getComment_id();
+				String comment_date=msgbean.getComment_date();
+				String comment_conent=msgbean.getComment_content();
+	
+%>			<li><a href="./Board/Board_view.jsp?num=<%=board_num%>">
+				<span style="text-size:8px; color:gray;"><%=comment_date%></span>
+				<span style="text-size:10px; color:skyblue;"><%=comment_id%></span><br>
+				<%=comment_conent%>
+				<hr/>
+			</a></li>
+<%			
+			}
+		}	else {
+				out.println("<li>등록된 댓글이 없습니다.</li>");
+		}
+%>
+		    </ul>
+		</div>
+		
+<%		
 	}
 %>
-<!-- ----------------------------------------------------------------------------------------------------------------- -->
-<!-- --------------------------------------------------- 로그인 ------------------------------------------------------- -->
-<!-- ----------------------------------------------------------------------------------------------------------------- -->
 
 </body>
 </html>
