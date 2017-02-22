@@ -10,7 +10,7 @@ public class msginfo_Access {
 	DBCon db=new DBCon();
 	String sql="";
 	
-	//메세지 알림기능 삽입
+	//硫��몄� ��由쇨린�� �쎌��
 	public void msginfo_ins(CommentBean cbean, String board_id, String comment_date,int count){
 		Connection con=db.connect();
 		PreparedStatement pstmt=null;
@@ -35,7 +35,7 @@ public class msginfo_Access {
 		
 	}
 	
-	//메시지 알림기능 read 변경 ==> 클릭하여 보았을 시 true
+	//硫���吏� ��由쇨린�� read 蹂�寃� ==> �대┃���� 蹂댁���� �� true
 	public void msginfoMod_msgRead(int board_num, int comment_num){
 		Connection con=db.connect();
 		PreparedStatement pstmt=null;
@@ -54,27 +54,88 @@ public class msginfo_Access {
 		}
 	}
 	
-	//메시지 삭제
-	public void msginfoDel(){
+	// 댓글 알림 삭제
+	public void msginfoDel(int board_num, int comment_num){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
 		
+		try{
+			sql="DELETE FROM msginfo WHERE board_num=? && comment_num=?";
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setInt(1, board_num);
+			pstmt.setInt(2, comment_num);
+			
+			pstmt.executeUpdate();
+			
+			up_msginNum(board_num,comment_num);
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally{
+				db.close(pstmt, con);
+		}
 	}
 	
-	
-	//메시지보다 번호가 작은 게시판 삭제시 번호 내리기
-	public void lowerboard_msginfoDel(){
+	// 게시판 삭제시 댓글 알림 삭제
+	public void board_msginfoDel(int board_num){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
 		
+		try{
+			sql="DELETE FROM msginfo WHERE board_num=?";
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setInt(1, board_num);
+			
+			pstmt.executeUpdate();
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally{
+				db.close(pstmt, con);
+		}
 	}
 	
-	
-	//게시판 삭제시 메시지 알림 DB도 삭제
-	public void board_msginfoDel(){
+	//낮은 게시판 삭제시 번호 올려주기
+	public void lowerboard_msginfoDel(int board_num){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
 		
-	}
+		try{
+			sql="UPDATE msginfo SET BOARD_NUM=BOARD_NUM-1 WHERE BOARD_NUM>?";
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setInt(1, board_num);
+			
+			pstmt.executeUpdate();
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally {
+				db.close(pstmt, con);
+		}		
+	}	
 	
-	
-	//삭제 후 번호 올려주기
-	public void up_msginNum(){
+	//삭제 시 번호 올려주기
+	public void up_msginNum(int board_num, int comment_num){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
 		
+		try{
+			sql="UPDATE msginfo SET comment_num=comment_num-1 WHERE board_num=? && comment_num>?";
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setInt(1, board_num);
+			pstmt.setInt(2, comment_num);
+			
+			pstmt.executeUpdate();
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally {
+				db.close(pstmt, con);
+		}
 	}
 
 }

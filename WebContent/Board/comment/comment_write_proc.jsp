@@ -22,7 +22,7 @@
 	out.println(commentbean.getComment_id()+"<br>");
 	out.println(commentbean.getComment_num()+"<br>");
 	
-	response.sendRedirect("../Board_view.jsp?num="+commentbean.getBoard_num());
+	response.sendRedirect("../Board_view.jsp?num="+commentbean.getBoard_num()+"&&msgRead=false&&comment_num=0");
 
 %>
 </body>

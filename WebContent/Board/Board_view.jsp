@@ -12,8 +12,18 @@
 
 <jsp:useBean id="Comment_Access" class="DAO.Comment_Access"/>
 <jsp:useBean id="CommentBean" class="DTO.CommentBean"/>
+
+<jsp:useBean id="msginfo_Access" class="DAO.msginfo_Access" />
+
 <%
 	int Get_num=Integer.parseInt(request.getParameter("num"));
+	int comment_num=Integer.parseInt(request.getParameter("comment_num"));
+	String msgRead=request.getParameter("msgRead");
+	
+	if(msgRead.equals("true")){
+		msginfo_Access.msginfoMod_msgRead(Get_num, comment_num);		
+	}
+	
 
 	Board_Access.Count_up(Get_num);
 	BoardBean bean=Board_Access.Board_view(Get_num);

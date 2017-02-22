@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/DAO/Board_Access.java=UTF-8
+encoding//src/DAO/Comment_Access.java=UTF-8
 encoding//src/DAO/Login_Access.java=UTF-8
 encoding//src/DAO/Reply_Access.java=UTF-8
+encoding//src/DAO/msginfo_Access.java=UTF-8

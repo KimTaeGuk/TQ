@@ -28,9 +28,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<!-- <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.min.css">
-<script src="./bootstrap/js/bootstrap.min.js"></script> -->
 
 <script>
 		function board_write(){
@@ -42,7 +39,7 @@
 			}
 		}
 	function Go_view(num){
-		window.location="./Board_view.jsp?num="+num;
+		window.location="./Board_view.jsp?num="+num+"&&msgRead=false&&comment_num=0";
 	}
 	
 	function notice_view(num){

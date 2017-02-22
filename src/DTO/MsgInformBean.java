@@ -6,7 +6,10 @@ public class MsgInformBean {
 	private String comment_content;
 	private String board_id;
 	private int board_num;
-
+	private int comment_num;
+	private int msgRead;
+	
+	
 	public String getComment_id() {
 		return comment_id;
 	}
@@ -36,5 +39,17 @@ public class MsgInformBean {
 	}
 	public void setBoard_num(int board_num) {
 		this.board_num = board_num;
+	}
+	public int getComment_num() {
+		return comment_num;
+	}
+	public void setComment_num(int comment_num) {
+		this.comment_num = comment_num;
+	}
+	public int getMsgRead() {
+		return msgRead;
+	}
+	public void setMsgRead(int msgRead) {
+		this.msgRead = msgRead;
 	}
 }

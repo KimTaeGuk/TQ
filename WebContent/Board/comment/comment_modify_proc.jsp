@@ -14,7 +14,7 @@
 <body>
 <%
 	Comment_Access.comment_modify(CommentBean);
-	response.sendRedirect("../Board_view.jsp?num="+request.getParameter("board_num"));
+	response.sendRedirect("../Board_view.jsp?num="+request.getParameter("board_num")+"&&msgRead=false&&comment_num=0");
 %>
 </body>
 </html>

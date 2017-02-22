@@ -111,6 +111,26 @@ public class Reply_Access {
 		}
 	}
 	
+	//댓글 삭제시 대댓글 comment_num 번호 -1 해주기
+	public void commentDel_upNum_reply(int board_num, int comment_num){
+		Connection con=db.connect();
+		PreparedStatement pstmt=null;
+		
+		try{
+			sql="UPDATE REPLY SET COMMENT_NUM=COMMENT_NUM-1 WHERE BOARD_NUM=? && COMMENT_NUM>?";
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			pstmt.setInt(2, comment_num);
+			
+			pstmt.executeUpdate();
+			
+		}	catch(Exception e){
+				e.printStackTrace();
+		}	finally {
+				db.close(pstmt, con);
+		}
+	}
 	
 	///////////////////////////�뙎湲� �궘�젣 �떆/////////////////////////////
 	public void comment_reply_delete(int board_num, int comment_num){
@@ -125,6 +145,8 @@ public class Reply_Access {
 			pstmt.setInt(2, comment_num);
 			
 			pstmt.executeUpdate();
+			
+			commentDel_upNum_reply(board_num, comment_num);
 			
 		}	catch(Exception e){
 				e.printStackTrace();

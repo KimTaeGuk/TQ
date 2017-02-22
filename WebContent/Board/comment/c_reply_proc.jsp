@@ -27,7 +27,7 @@
  	
  	Reply_Access.reply_insert(ReplyBean, (count+1));
  	
-	response.sendRedirect("../Board_view.jsp?num="+ReplyBean.getBoard_num());
+	response.sendRedirect("../Board_view.jsp?num="+ReplyBean.getBoard_num()+"&&msgRead=false&&comment_num=0");
  %>
  
 </body>
