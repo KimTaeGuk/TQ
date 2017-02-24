@@ -3,8 +3,6 @@ package DBCon;
 import java.sql.*;
 
 public class DBCon {
-	public void DBCon(){}
-	
 	public Connection connect(){
 		Connection con=null;
 		try{

@@ -9,8 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  <!-- 회원가입 -->
   <servlet>
     <servlet-name>registerWriteAction</servlet-name>
     <servlet-class>ControllerAction.RegisterWriter</servlet-class>
@@ -19,14 +17,44 @@
     <servlet-name>registerWriteAction</servlet-name>
     <url-pattern>/registerWrite.do</url-pattern>
   </servlet-mapping>
-
-	<!-- 로그인 -->
-	<servlet>
-		<servlet-name>loginAction</servlet-name>
-		<servlet-class>ControllerAction.LoginProc</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>loginAction</servlet-name>
-		<url-pattern>/loginproc.do</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>loginAction</servlet-name>
+    <servlet-class>ControllerAction.LoginProc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginAction</servlet-name>
+    <url-pattern>/loginproc.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>boardWriteAction</servlet-name>
+    <servlet-class>ControllerAction.boardWrite</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>boardWriteAction</servlet-name>
+    <url-pattern>/boardWrite.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>boardViewAction</servlet-name>
+    <servlet-class>ControllerAction.BoardView</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>boardViewAction</servlet-name>
+    <url-pattern>/boardView.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>boardDeleteAction</servlet-name>
+    <servlet-class>ControllerAction.BoardDelete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>boardDeleteAction</servlet-name>
+    <url-pattern>/boardDelete.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>boardModifyAction</servlet-name>
+  	<servlet-class>ControllerAction.BoardModify</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>boardModifyAction</servlet-name>
+  	<url-pattern>/boardModify.do</url-pattern>
+  </servlet-mapping>
 </web-app>
