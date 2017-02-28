@@ -1,10 +1,5 @@
 # [Model1 Login & Board]
 
-### Requirements
-- DB : mysql v5.7.17
-- WAS : Tomcat v9.0
-- Tool : Eclipse Neon.2
-
 ### Techincal Skills
 | Languages | Frameworks / Tools |
 |-----------|--------------------|
@@ -13,10 +8,13 @@
 |HTML       |HTML5               |
 |CSS        |CSS3, Bootstrap     |
 
-|Etc.       |Descriptions          |
-|-----------|----------------------|
-|OS         |Windows, Linux(Ubuntu)|
-|Editors    |Eclipse               |
+### Requirements
+|Etc.       |Descriptions            |
+|-----------|------------------------|
+|OS         |Windows or Linux(Ubuntu)|
+|Editors    |Eclipse                 |
+|DB         |mysql v5.7.17           |
+|WAS        |Tomcat v9.0             |
 
 ### Features
 
