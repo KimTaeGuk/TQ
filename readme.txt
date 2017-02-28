@@ -1,4 +1,4 @@
-?[Model 2_Login && Board PortPolio]
+[Model 2_Login && Board PortPolio]
 
 DB : mysql v5.7.17
 Tool : Eclipse Neon.2
