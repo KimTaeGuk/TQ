@@ -1,14 +1,14 @@
-[Model 2_Login && Board PortPolio]
+# [Model 2_Login && Board PortPolio]
 
 DB : mysql v5.7.17
 Tool : Eclipse Neon.2
 WAS : Tomcat v9.0
 
-»ç¿ë ¾ð¾î : JSP, Javascript, HTML, CSS, xml
+ì‚¬ìš© ì–¸ì–´ : JSP, Javascript, HTML, CSS, xml
 
-***************************************model1¿¡¼­ÀÇ °³¼± »çÇ×***************************************
+***************************************model1ì—ì„œì˜ ê°œì„  ì‚¬í•­***************************************
 
-1. JstlÀ» »ç¿ëÇÑ ÄÚµå °¡µ¶¼º °³¼±
-2. dbcp¸¦ ÀÌ¿ëÇÑ DB ºÎÇÏ Á¶Àý
-3. HashMapÀ» »ç¿ëÇÏ¿© ¼¼¼Ç °ü¸® °³¼±
-4. MVC ¸ðµå¿¡ ±â¹ÝÇÏ¿© jsp ÆäÀÌÁö ¼ö °¨¼Ò
+1. Jstlì„ ì‚¬ìš©í•œ ì½”ë“œ ê°€ë…ì„± ê°œì„ 
+2. dbcpë¥¼ ì´ìš©í•œ DB ë¶€í•˜ ì¡°ì ˆ
+3. HashMapì„ ì‚¬ìš©í•˜ì—¬ ì„¸ì…˜ ê´€ë¦¬ ê°œì„ 
+4. MVC ëª¨ë“œì— ê¸°ë°˜í•˜ì—¬ jsp íŽ˜ì´ì§€ ìˆ˜ ê°ì†Œ
