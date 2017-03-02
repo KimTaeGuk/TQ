@@ -11,7 +11,7 @@
 ### Requirements
 |Etc.       |Descriptions            |
 |-----------|------------------------|
-|OS         |Windows or Linux(Ubuntu)|
+|OS         |Windows or Linux        |
 |Editors    |Eclipse                 |
 |DB         |mysql v5.7.17           |
 |WAS        |Tomcat v9.0             |
